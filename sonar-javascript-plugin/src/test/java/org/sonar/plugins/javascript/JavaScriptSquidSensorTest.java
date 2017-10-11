@@ -164,6 +164,15 @@ public class JavaScriptSquidSensorTest {
   }
 
   @Test
+  public void should_analyse_vue() {
+    String relativePath = "cpd/file.vue";
+    inputFile(relativePath);
+    createSensor().execute(context);
+    String key = "moduleKey:" + relativePath;
+    assertThat(context.measure(key, CoreMetrics.NCLOC)).isNotNull();
+  }
+
+  @Test
   public void should_not_yet_calculate_cognitive_complexity_in_6_2() throws Exception {
     final String relativePath = "complexity/complexity.js";
     inputFile(relativePath);
